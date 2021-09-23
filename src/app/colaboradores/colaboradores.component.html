@@ -1,0 +1,211 @@
+<div class="container text-center ">
+  <div class="container text-center">
+    <button class="btn btn-sm btn-success text mb-5 w-50 large" (click)="open(add_content)">
+      <i class="fa fa-edit"></i>Agregar Registro</button>
+    <table class="table table-bordered table-striped text-center">
+      <thead>
+      <tr>
+        <th>IDCOLABORADOR</th>
+        <th>NOMBRE</th>
+        <th>APELLIDO</th>
+        <th>EDAD</th>
+        <th>DIRECCION</th>
+        <th class="w-50">PROFESION</th>
+        <th>ESTADO CIVIL</th>
+        <th>ACCIONES</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let colaborador of colaboradores">
+        <td><span>{{colaborador.IDCOLABORADOR}}</span></td>
+        <td><span>{{colaborador.NOMBRE}}</span></td>
+        <td><span>{{colaborador.APELLIDO}}</span></td>
+        <td><span>{{colaborador.EDAD}}</span></td>
+        <td><span>{{colaborador.DIRECCION}}</span></td>
+        <td><span>{{colaborador.PROFESION}}</span></td>
+        <td><span>{{colaborador.ESTADOCIVIL}}</span></td>
+        <td class="w-50">
+          <button class="btn btn-sm btn-primary mx-1" (click)="openEdit(edit_content, colaborador)">
+            <i class="fa fa-edit"></i>Editar</button>
+            <button class="btn btn-sm btn-danger mx-1" (click)="openDelete(delete_content, colaborador)">
+              <i class="fa fa-remove"></i>Borrar</button>
+              <button class="btn btn-sm btn-danger mx-1 my-2" (click)="nivelRiesgo(centerContent, colaborador)">
+                <i class="fa fa-edit"></i>Nivel de Riesgo</button>
+              </td>
+              <!-- <td>
+                <button class="btn btn-sm btn-success mx-1" (click)="openDetails(contentDetails, colaborador)">
+                  <i class="fa fa-edit"></i>Detalles</button>      
+              </td> -->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal de Insercion -->
+  <ng-template #add_content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Insertar Colaborador</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate autocomplete="off">
+
+        <div class="form-group">
+
+          <label for="nombre">NOMBRE</label>
+          <div class="input-group">
+            <input id="nombre" name="NOMBRE" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="apellido">APELLIDO</label>
+          <div class="input-group">
+            <input id="apellido" name="APELLIDO" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="edad">EDAD</label>
+          <div class="input-group">
+            <input id="edad" name="EDAD" class="form-control" type="number" pattern="[0-9]+" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="direccion">DIRECCION</label>
+          <div class="input-group">
+            <input id="direccion" name="DIRECCION" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="profesion">PROFESION</label>
+          <div class="input-group">
+            <input id="profesion" name="PROFESION" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="estado_civil">ESTADO CIVIL</label>
+          <div class="input-group">
+            <input id="estado_civil" name="ESTADOCIVIL" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="border text-center mt-3">
+          <button data-dismiss="modal" class="btn btn-info">Registrar</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancelado por boton')">Cancelar</button>
+    </div>
+  </ng-template>
+
+  <!-- Modal de Edicion -->
+  <ng-template #edit_content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Editar Colaborador</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="onSubmitPut(f)" novalidate autocomplete="off">
+
+        <div class="form-group">
+
+          <label for="nombre">NOMBRE</label>
+          <div class="input-group">
+            <input id="edit_nombre" name="E_NOMBRE" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="apellido">APELLIDO</label>
+          <div class="input-group">
+            <input id="edit_apellido" name="E_APELLIDO" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="edad">EDAD</label>
+          <div class="input-group">
+            <input id="edit_edad" name="E_EDAD" class="form-control" type="number" pattern="[0-9]+" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="direccion">DIRECCION</label>
+          <div class="input-group">
+            <input id="edit_direccion" name="E_DIRECCION" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="profesion">PROFESION</label>
+          <div class="input-group">
+            <input id="edit_profesion" name="E_PROFESION" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="estado_civil">ESTADO CIVIL</label>
+          <div class="input-group">
+            <input id="edit_estado_civil" name="E_ESTADOCIVIL" class="form-control" ngModel>
+          </div>
+        </div>
+
+        <div class="border text-center">
+          <button data-dismiss="modal" class="btn btn-info">Registrar</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancelado por boton')">Cancelar</button>
+    </div>
+  </ng-template>
+
+  <!-- Modal de Eliminar -->
+  <ng-template #delete_content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Eliminar Colaborador</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      ¿Seguro de que quieres eliminar este elemento?
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-danger" (click)="onSubmitDelete()">Eliminar</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancelado por boton')">Cancelar</button>
+    </div>
+  </ng-template>
+
+  <!-- Modal de Riesgo -->
+  <ng-template #centerContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Nivel de Riesgo</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>{{riesgo_msg}}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+  <!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openVerticallyCentered(centerContent)">Modal vertically centered</button>   -->
+
+  <hr>
+  <button class="btn btn-sm btn-warning text mb-5 w-100 large" (click)="getColaborador()">Cargar Registros...</button>
+
+  <!-- Informacion de Cierre de la ventana flotante -->
+  <!-- <pre>{{ closeResult }}</pre> -->
+</div>

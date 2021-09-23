@@ -1,0 +1,12 @@
+/* Custom */
+*{
+  font-size: large;
+}
+
+.container{
+    margin-top:5%;
+  }
+
+.large{
+  font-size: x-large;
+}
